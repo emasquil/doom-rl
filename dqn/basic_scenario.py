@@ -227,7 +227,9 @@ def train_model(model_path):
                     target = learning_rewards[i] + GAMMA * np.max(Qs_next_state[i])
                 # Trick for computing the loss only for the desired action
                 target_Qs[i, learning_action] = target
-            conv_dqn.fit(learning_states, target_Qs, epochs=1)
+            conv_dqn.fit(learning_states, target_Qs, epochs=1, verbose=0)
+        if episode % 100 == 0:
+            conv_dqn.save("basic_dqn.h5")
     game.close()
     conv_dqn.save("basic_dqn.h5")
 
